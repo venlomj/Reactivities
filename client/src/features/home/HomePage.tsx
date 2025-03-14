@@ -15,7 +15,8 @@ export default function HomePage() {
         justifyContent: "center",
         height: "100vh",
         backgroundImage:
-          "linear-gradient(135deg, #182a73 0%, #218aae 69%, #20a7ac)",
+          // "linear-gradient(135deg, #182a73 0%, #218aae 69%, #20a7ac)",
+          "linear-gradient(135deg, #0D1B2A 0%, #1B263B 50%, #415A77 100%)",
       }}
     >
       <Box

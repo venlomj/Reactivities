@@ -6,18 +6,26 @@ import {
   Typography,
   Container,
   MenuItem,
+  LinearProgress,
 } from "@mui/material";
 import { NavLink } from "react-router";
 import MenuItemLink from "../shared/components/MenuItemLink";
+import useStore from "../../lib/hooks/useStore";
+import { Observer } from "mobx-react-lite";
 
 export default function NavBar() {
+  const {uiStore} = useStore()
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
         position="static"
         sx={{
           backgroundImage:
-            "linear-gradient(135deg, #182a73 0%, #218aae 69%, #20a7ac)",
+            // "linear-gradient(135deg, #182a73 0%, #218aae 69%, #20a7ac)",
+            // "linear-gradient(135deg, #232526 0%, #414345 100%)",
+            "linear-gradient(135deg, #0D1B2A 0%, #1B263B 50%, #415A77 100%)",
+            position: 'relative'
         }}
       >
         <Container maxWidth="xl">
@@ -38,10 +46,27 @@ export default function NavBar() {
             <Box sx={{ display: "flex" }}>
               <MenuItemLink to="/activities">Activities</MenuItemLink>
               <MenuItemLink to="/createActivity">Create Activity</MenuItemLink>
+              <MenuItemLink to="/counter">Counter</MenuItemLink>
             </Box>
             <MenuItem>User menu</MenuItem>
           </Toolbar>
         </Container>
+
+        <Observer>
+          {() => uiStore.isLoading ? (
+            <LinearProgress
+            color="secondary"
+            sx={{
+              position: 'absolute',
+              bottom: 0,
+              left: 0,
+              right: 0,
+              height: 4
+            }}
+             />
+          ): null}
+        </Observer>
+
       </AppBar>
     </Box>
   );
