@@ -5,12 +5,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Button, Paper, Typography } from "@mui/material";
 import { LockOpen } from "@mui/icons-material";
 import TextInput from "../../app/shared/components/TextInput";
-import { Link, useLocation, useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 export default function LoginForm() {
   const { loginUser } = useAccount();
   const navigate = useNavigate();
-  const location = useLocation();
+  // const location = useLocation();
 
   const {
     control,
@@ -24,7 +24,8 @@ export default function LoginForm() {
   const onSubmit = async (data: LoginSchema) => {
     await loginUser.mutateAsync(data, {
       onSuccess: () => {
-        navigate(location.state?.from || "/activities");
+        //navigate(location.state?.from || "/activities");
+        navigate("/activities");
       },
     });
   };
