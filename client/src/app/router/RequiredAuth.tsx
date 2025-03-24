@@ -1,36 +1,15 @@
-import { Navigate, Outlet, useLocation } from "react-router";
-import { useAccount } from "../../lib/hooks/useAccount";
-import { Typography } from "@mui/material";
+import { useAccount } from '../../lib/hooks/useAccount'
+import { Typography } from '@mui/material';
+import { Navigate, Outlet, useLocation } from 'react-router';
 
-export default function RequiredAuth() {
-    const { currentUser, loadingUserInfo } = useAccount();
+export default function RequireAuth() {
+    const {currentUser, loadingUserInfo} = useAccount()
     const location = useLocation();
 
-    if (loadingUserInfo) return <Typography>Loading...</Typography>;
+    if (loadingUserInfo) return <Typography>Loading...</Typography>
 
-    if (!currentUser) {
-        // Avoid setting the from state to the login page
-        const from = location.pathname !== "/login" ? location.pathname : "/activities";
-        return <Navigate to='/login' state={{ from }} />;
-    }
-
-    return <Outlet />;
+    if (!currentUser) return <Navigate to={'login'} state={{from: location}}/>
+  return (
+    <Outlet />
+  )
 }
-
-
-// import { Navigate, Outlet, useLocation } from "react-router";
-// import { useAccount } from "../../lib/hooks/useAccount"
-// import { Typography } from "@mui/material";
-
-// export default function RequiredAuth() {
-//     const {currentUser, loadingUserInfo} = useAccount();
-//     const location = useLocation();
-
-//     if (loadingUserInfo) return <Typography>Loading...</Typography>
-
-//     if (!currentUser) return <Navigate to='/login' state={{from: location}} />
-
-//   return (
-//     <Outlet />
-//   )
-// }
