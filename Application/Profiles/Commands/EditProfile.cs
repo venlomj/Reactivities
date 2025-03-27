@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Application.Core;
+﻿using Application.Core;
 using Application.Interfaces;
-using Application.Profiles.DTOs;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;

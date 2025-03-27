@@ -26,6 +26,10 @@ namespace Application.Core
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.User.Id));
 
             CreateMap<User, UserProfile>();
+            CreateMap<Comment, CommentDto>()
+                .ForMember(dest => dest.DisplayName, o => o.MapFrom(src => src.User.DisplayName))
+                .ForMember(dest => dest.UserId, o => o.MapFrom(src => src.User.Id))
+                .ForMember(dest => dest.ImageUrl, o => o.MapFrom(src => src.User.ImageUrl));
         }
     }
 }
