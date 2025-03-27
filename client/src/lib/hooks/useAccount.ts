@@ -8,7 +8,6 @@ import { toast } from "react-toastify";
 export const useAccount = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  // const location = useLocation();
 
   const loginUser = useMutation({
     mutationFn: async (creds: LoginSchema) => {
@@ -48,9 +47,7 @@ export const useAccount = () => {
       const response = await agent.get<User>("/account/user-info");
       return response.data;
     },
-    enabled: !queryClient.getQueryData(["user"]), //&&
-    // location.pathname !== "/login" &&
-    // location.pathname !== "/register",
+    enabled: !queryClient.getQueryData(["user"]),
   });
 
   return {
