@@ -33,8 +33,11 @@ export default function ActivityCard({ activity }: Props) {
           avatar={
             <Avatar
               src={activity.hostImageUrl}
-              sx={{ height: 80, width: 80 }}
               alt="image of host"
+              sx={{
+                width: { xs: 40, sm: 60, md: 80 },
+                height: { xs: 40, sm: 60, md: 80 },
+              }}
             />
           }
           title={activity.title}
@@ -44,7 +47,7 @@ export default function ActivityCard({ activity }: Props) {
           }}
           subheader={
             <>
-              Hosted by{" "}
+              Hosted by {" "}
               <Link to={`/profiles/${activity.hostId}`}>
                 {activity.hostDisplayName}
               </Link>
@@ -65,37 +68,50 @@ export default function ActivityCard({ activity }: Props) {
           )}
         </Box>
       </Box>
+
       <Divider sx={{ mb: 3 }} />
+
       <CardContent sx={{ p: 0 }}>
-        <Box display="flex" alignItems="center" mb={2} px={2}>
-          <Box display="flex" flexGrow={0} alignItems="center">
+        <Box
+          display="flex"
+          flexWrap="wrap"
+          alignItems="center"
+          mb={2}
+          px={2}
+        >
+          <Box display="flex" alignItems="center" flexGrow={0}>
             <AccessTime sx={{ mr: 1 }} />
             <Typography variant="body2" noWrap>
               {formatDate(activity.date)}
             </Typography>
           </Box>
+
           <Place sx={{ ml: 3, mr: 1 }} />
           <Typography variant="body2">{activity.venue}</Typography>
         </Box>
+
         <Divider />
+
         <Box
           display="flex"
           gap={2}
-          sx={{ backgroundColor: "grey.200", py: 3, pl: 3 }}
+          sx={{ backgroundColor: "grey.200", py: 3, pl: 3, overflowX: "auto" }}
         >
           {activity.attendees.map((att) => (
             <AvatarPopover profile={att} key={att.id} />
           ))}
         </Box>
       </CardContent>
+
       <CardContent sx={{ pb: 2 }}>
         <Typography variant="body2">{activity.description}</Typography>
+
         <Button
           component={Link}
           to={`/activities/${activity.id}`}
           size="medium"
           variant="contained"
-          sx={{ display: "flex", justifySelf: "self-end", borderRadius: 3 }}
+          sx={{ ml: "auto", borderRadius: 3 }}
         >
           View
         </Button>

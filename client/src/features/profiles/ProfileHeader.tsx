@@ -4,7 +4,7 @@ import {
   Button,
   Chip,
   Divider,
-  Grid2,
+  Grid,
   Paper,
   Stack,
   Typography,
@@ -20,13 +20,17 @@ export default function ProfileHeader() {
 
   return (
     <Paper elevation={3} sx={{ p: 4, borderRadius: 3 }}>
-      <Grid2 container spacing={2}>
-        <Grid2 size={8}>
+      <Grid container spacing={3}>
+        {/* Left Section - Avatar and Display Name */}
+        <Grid item xs={12} md={8}>
           <Stack direction="row" spacing={3} alignItems="center">
             <Avatar
               src={profile.imageUrl}
-              alt={profile.displayName + " image"}
-              sx={{ width: 150, height: 150 }}
+              alt={`${profile.displayName} image`}
+              sx={{
+                width: { xs: 100, sm: 130, md: 150 },
+                height: { xs: 100, sm: 130, md: 150 },
+              }}
             />
             <Box display="flex" flexDirection="column" gap={2}>
               <Typography variant="h4">{profile.displayName}</Typography>
@@ -40,8 +44,10 @@ export default function ProfileHeader() {
               )}
             </Box>
           </Stack>
-        </Grid2>
-        <Grid2 size={4}>
+        </Grid>
+
+        {/* Right Section - Stats and Action Button */}
+        <Grid item xs={12} md={4}>
           <Stack spacing={2} alignItems="center">
             <Box display="flex" justifyContent="space-around" width="100%">
               <Box textAlign="center">
@@ -53,6 +59,8 @@ export default function ProfileHeader() {
                 <Typography variant="h3">{profile.followingCount}</Typography>
               </Box>
             </Box>
+
+            {/* Follow/Unfollow Button */}
             {!isCurrentUser && (
               <>
                 <Divider sx={{ width: "100%" }} />
@@ -68,8 +76,8 @@ export default function ProfileHeader() {
               </>
             )}
           </Stack>
-        </Grid2>
-      </Grid2>
+        </Grid>
+      </Grid>
     </Paper>
   );
 }
