@@ -12,7 +12,6 @@ import LoginForm from "../../features/account/LoginForm";
 import RequiredAuth from "./RequiredAuth";
 import RegisterForm from "../../features/account/RegisterForm";
 import ProfilePage from "../../features/profiles/ProfilePage";
-import ProfileEditForm from "../../features/profiles/form/ProfileEditForm";
 
 export const router = createBrowserRouter([
   {
@@ -27,7 +26,6 @@ export const router = createBrowserRouter([
           { path: "/createActivity", element: <ActivityForm key="create" /> },
           { path: "/manage/:id", element: <ActivityForm /> },
           { path: "/profiles/:id", element: <ProfilePage /> },
-          { path: "/profiles/:id", element: <ProfileEditForm/> },
         ],
       },
       { path: "", element: <HomePage /> },
