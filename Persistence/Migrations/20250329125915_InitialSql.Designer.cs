@@ -12,8 +12,8 @@ using Persistence.Data;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250328165615_DateIndexAdded")]
-    partial class DateIndexAdded
+    [Migration("20250329125915_InitialSql")]
+    partial class InitialSql
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -425,7 +425,7 @@ namespace Persistence.Migrations
                     b.HasOne("Domain.Entities.User", "Target")
                         .WithMany("Followers")
                         .HasForeignKey("TargetId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Observer");

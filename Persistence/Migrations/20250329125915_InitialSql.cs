@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class FixUserFollowingRelationship : Migration
+    public partial class InitialSql : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -272,9 +272,13 @@ namespace Persistence.Migrations
                         name: "FK_UserFollowings_AspNetUsers_TargetId",
                         column: x => x.TargetId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Activities_Date",
+                table: "Activities",
+                column: "Date");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ActivityAttendees_UserId",

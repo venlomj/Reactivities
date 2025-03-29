@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Application.Core;
-using AutoMapper;
-using Domain.Entities;
+﻿using Application.Core;
 using MediatR;
 using Persistence.Data;
 
@@ -17,7 +10,7 @@ namespace Application.Activities.Commands
         {
             public required string Id { get; set; }
         }
-        public class Handler(AppDbContext context, IMapper mapper) : IRequestHandler<Command, Result<Unit>>
+        public class Handler(AppDbContext context) : IRequestHandler<Command, Result<Unit>>
         {
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {

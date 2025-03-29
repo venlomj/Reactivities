@@ -41,7 +41,7 @@ namespace Persistence.Data
                 x.HasOne(o => o.Target)
                     .WithMany(f => f.Followers)
                     .HasForeignKey(o => o.TargetId)
-                    .OnDelete(DeleteBehavior.Restrict); // Change this to Restrict
+                    .OnDelete(DeleteBehavior.NoAction); // Change this to Restrict
             });
 
 
