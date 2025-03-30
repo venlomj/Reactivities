@@ -4,14 +4,15 @@ import {
   Card,
   CardContent,
   CardMedia,
-  Grid2,
   Tab,
   Tabs,
   Typography,
 } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import { Link, useParams } from "react-router";
 import { format } from "date-fns";
 import { useProfile } from "../../lib/hooks/useProfile.ts";
+
 
 export default function ProfileActivities() {
   const [activeTab, setActiveTab] = useState(0);
@@ -35,27 +36,27 @@ export default function ProfileActivities() {
 
   return (
     <Box>
-      <Grid2 container spacing={2}>
-        <Grid2 size={12}>
+      <Grid container spacing={2}>
+        <Grid size={{ xs: 12, sm: 12, md: 12, lg: 12 }}>
           <Tabs value={activeTab} onChange={handleTabChange}>
             {tabs.map((tab, index) => (
               <Tab label={tab.menuItem} key={index} />
             ))}
           </Tabs>
-        </Grid2>
-      </Grid2>
+        </Grid>
+      </Grid>
       {(!userActivities || userActivities.length === 0) &&
       !loadingUserActivities ? (
         <Typography mt={2}>No activities to show</Typography>
       ) : null}
-      <Grid2
+      <Grid
         container
         spacing={2}
         sx={{ marginTop: 2, height: 400, overflow: "auto" }}
       >
         {userActivities &&
           userActivities.map((activity: Activity) => (
-            <Grid2 size={2} key={activity.id}>
+            <Grid size={{ xs: 12, sm: 6, md: 4, lg: 2 }} key={activity.id}>
               <Link
                 to={`/activities/${activity.id}`}
                 style={{ textDecoration: "none" }}
@@ -84,9 +85,9 @@ export default function ProfileActivities() {
                   </CardContent>
                 </Card>
               </Link>
-            </Grid2>
+            </Grid>
           ))}
-      </Grid2>
+      </Grid>
     </Box>
   );
 }

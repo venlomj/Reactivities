@@ -16,8 +16,8 @@ export default function ProfileContent() {
     { label: "About", content: <ProfileAbout /> },
     { label: "Photos", content: <ProfilePhotos /> },
     { label: "Events", content: <ProfileActivities /> },
-    { label: "Followers", content: <ProfileFollowings activeTab={value} />},
-    { label: "Following", content: <ProfileFollowings activeTab={value} />},
+    { label: "Followers", content: <ProfileFollowings activeTab={value} /> },
+    { label: "Following", content: <ProfileFollowings activeTab={value} /> },
   ];
 
   return (
@@ -33,13 +33,20 @@ export default function ProfileContent() {
         orientation="vertical"
         value={value}
         onChange={handleChange}
-        sx={{ borderRight: 1, height: 450, minWidth: 200 }}
+        sx={{
+          borderRight: 1,
+          height: 450,
+          minWidth: 200,
+          width: { xs: '100%', sm: '100%', md: '200px' },
+        }}
       >
         {tabContent.map((tab, index) => (
           <Tab key={index} label={tab.label} sx={{ mr: 3 }} />
         ))}
       </Tabs>
-      <Box sx={{ flexGrow: 1, p: 3, pt: 0 }}>{tabContent[value].content}</Box>
+      <Box sx={{ flexGrow: 1, p: 3, pt: 0 }}>
+        {tabContent[value].content}
+      </Box>
     </Box>
   );
 }
