@@ -1,5 +1,5 @@
-﻿using Application.Activities.DTOs;
-using Application.Profiles.DTOs;
+﻿using Application.UseCases.Activities.DTOs;
+using Application.UseCases.Profiles.DTOs;
 using AutoMapper;
 using Domain.Entities;
 

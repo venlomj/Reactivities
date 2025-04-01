@@ -1,5 +1,5 @@
 ﻿using Application.Interfaces;
-using Application.Profiles.DTOs;
+using Application.UseCases.Profiles.DTOs;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Http;
