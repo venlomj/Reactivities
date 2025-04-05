@@ -1,7 +1,7 @@
 ﻿using API.Controllers.Base;
-using Application.Profiles.Commands;
-using Application.Profiles.DTOs;
-using Application.Profiles.Queries;
+using Application.UseCases.Profiles.Commands;
+using Application.UseCases.Profiles.DTOs;
+using Application.UseCases.Profiles.Queries;
 using Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Http;

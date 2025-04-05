@@ -1,11 +1,12 @@
 using API.Middleware;
 using API.SignalR;
-using Application.Activities.Queries;
-using Application.Activities.Validators;
+using Application;
 using Application.Core;
 using Application.Interfaces;
+using Application.UseCases.Activities.Validators;
 using Domain.Entities;
 using FluentValidation;
+using Infrastructure.Email;
 using Infrastructure.Photos;
 using Infrastructure.Security;
 using Microsoft.AspNetCore.Authorization;
@@ -13,11 +14,14 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
+using Resend;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddApplicationServices();
 
 builder.Services.AddControllers(opt =>
 {
@@ -35,11 +39,21 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddCors();
 builder.Services.AddSignalR();
-builder.Services.AddMediatR(x =>
+
+// This has been moved to the DI of the Application; it's part of my refactoring process
+//builder.Services.AddMediatR(x =>
+//{
+//    x.RegisterServicesFromAssemblyContaining<GetActivityList.Handler>();
+//    x.AddOpenBehavior(typeof(ValidationBehavior<,>));
+//});
+builder.Services.AddHttpClient<ResendClient>();
+builder.Services.Configure<ResendClientOptions>(opt =>
 {
-    x.RegisterServicesFromAssemblyContaining<GetActivityList.Handler>();
-    x.AddOpenBehavior(typeof(ValidationBehavior<,>));
+    opt.ApiToken = builder.Configuration["Resend:ApiToken"]!;
 });
+builder.Services.AddTransient<IResend, ResendClient>();
+builder.Services.AddTransient<IEmailSender<User>, EmailSender>();
+
 
 builder.Services.AddScoped<IUserAccessor, UserAccessor>();
 builder.Services.AddScoped<IPhotoService, PhotoService>();
@@ -49,6 +63,7 @@ builder.Services.AddTransient<ExceptionMiddleware>();
 builder.Services.AddIdentityApiEndpoints<User>(opt =>
     {
         opt.User.RequireUniqueEmail = true;
+        opt.SignIn.RequireConfirmedEmail = true;
     })
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>();
