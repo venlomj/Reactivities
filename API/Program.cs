@@ -1,3 +1,4 @@
+using API.Extensions;
 using API.Middleware;
 using API.SignalR;
 using Application;
@@ -15,13 +16,14 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
 using Resend;
-using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddApplicationServices();
+
+builder.Services.AddScalarTransformer();
 
 builder.Services.AddControllers(opt =>
 {
@@ -88,7 +90,7 @@ app.UseMiddleware<ExceptionMiddleware>();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
-    app.MapScalarApiReference();
+    app.AddScalarDocumentation();
 }
 
 app.UseHttpsRedirection();
