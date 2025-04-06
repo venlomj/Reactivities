@@ -25,9 +25,19 @@ namespace Infrastructure.Email
             throw new NotImplementedException();
         }
 
-        public Task SendPasswordResetCodeAsync(User user, string email, string resetCode)
+        public async Task SendPasswordResetCodeAsync(User user, string email, string resetCode)
         {
-            throw new NotImplementedException();
+            var subject = "Reset your password";
+            var body = $@"
+            <p>Hi {user.DisplayName}</p>
+            <p>Please click this link to reset your password</p>
+            <p><a href='{config["ClientAppUrl"]}/reset-password?email={email}&code={resetCode}'>
+                Click here to reset your password</a>
+             </p>
+            <p>If you did not request this, you can ignore this email</p>
+            ";
+
+            await SendMailAsync(email, subject, body);
         }
 
         private async Task SendMailAsync(string email, string subject, string body)
@@ -42,9 +52,9 @@ namespace Infrastructure.Email
 
             Console.WriteLine(message.HtmlBody);
 
-            await resend.EmailSendAsync(message);
+            //await resend.EmailSendAsync(message);
 
-            // await Task.CompletedTask;
+            await Task.CompletedTask;
         }
     }
 }
