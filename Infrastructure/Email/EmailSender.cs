@@ -52,9 +52,9 @@ namespace Infrastructure.Email
 
             Console.WriteLine(message.HtmlBody);
 
-            //await resend.EmailSendAsync(message);
+            await resend.EmailSendAsync(message);
 
-            await Task.CompletedTask;
+            //await Task.CompletedTask;
         }
     }
 }
