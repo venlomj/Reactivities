@@ -60,6 +60,12 @@ export default function UserMenu() {
           </ListItemIcon>
           <ListItemText>My profile</ListItemText>
         </MenuItem>
+        <MenuItem component={Link} to='/change-password' onClick={handleClose}>
+          <ListItemIcon>
+            <Person />
+          </ListItemIcon>
+          <ListItemText>Change password</ListItemText>
+        </MenuItem>
         <Divider />
         <MenuItem
           onClick={() => {
