@@ -3,7 +3,7 @@ import { useAccount } from "../../lib/hooks/useAccount";
 import { loginSchema, LoginSchema } from "../../lib/schemas/loginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Button, Paper, Typography } from "@mui/material";
-import { LockOpen } from "@mui/icons-material";
+import { GitHub, LockOpen } from "@mui/icons-material";
 import TextInput from "../../app/shared/components/TextInput";
 import { Link, useLocation, useNavigate } from "react-router";
 import { useState } from "react";
@@ -23,18 +23,17 @@ export default function LoginForm() {
     mode: "onTouched",
     resolver: zodResolver(loginSchema),
   });
-  const email = watch('email')
-  
+  const email = watch("email");
 
   const handleResendEmail = async () => {
     try {
-      await resendConfirmationEmail.mutateAsync({email});
-    setNotVerified(false)
+      await resendConfirmationEmail.mutateAsync({ email });
+      setNotVerified(false);
     } catch (error) {
-      console.log(error)
-      toast.error('Problem sending email - please check email address')
+      console.log(error);
+      toast.error("Problem sending email - please check email address");
     }
-  }
+  };
 
   const onSubmit = async (data: LoginSchema) => {
     await loginUser.mutateAsync(data, {
@@ -47,6 +46,12 @@ export default function LoginForm() {
         }
       },
     });
+  };
+
+  const loginWithGithub = () => {
+    const clientId = import.meta.env.VITE_GITHUB_CLIENT_ID;
+    const redirectUrl = import.meta.env.VITE_REDIRECT_URL;
+    window.location.href = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirectUri${redirectUrl}&scope=read:user user:email`;
   };
 
   return (
@@ -88,6 +93,16 @@ export default function LoginForm() {
       >
         Login
       </Button>
+      <Button
+        onClick={loginWithGithub}
+        startIcon={<GitHub />}
+        sx={{ backgroundColor: "black" }}
+        type="button"
+        variant="contained"
+        size="large"
+      >
+        Login with Github
+      </Button>
       {notVerified ? (
         <Box display="flex" flexDirection="column" justifyContent="center">
           <Typography textAlign="center" color="error">
@@ -95,28 +110,29 @@ export default function LoginForm() {
             re-send the verification email
           </Typography>
           <Button
-          disabled={resendConfirmationEmail.isPending}
-          onClick={handleResendEmail}
-          >Re-send email link</Button>
+            disabled={resendConfirmationEmail.isPending}
+            onClick={handleResendEmail}
+          >
+            Re-send email link
+          </Button>
         </Box>
       ) : (
-        <Box display='flex' alignItems='center' justifyContent='center' gap={3}>
+        <Box display="flex" alignItems="center" justifyContent="center" gap={3}>
           <Typography>
-            Forgot password? Click <Link to='/forgot-password'>here</Link>
+            Forgot password? Click <Link to="/forgot-password">here</Link>
           </Typography>
           <Typography sx={{ textAlign: "center" }}>
-          Don't have an account?
-          <Typography
-            sx={{ ml: 2 }}
-            component={Link}
-            to="/register"
-            color="primary"
-          >
-            Sign up
+            Don't have an account?
+            <Typography
+              sx={{ ml: 2 }}
+              component={Link}
+              to="/register"
+              color="primary"
+            >
+              Sign up
+            </Typography>
           </Typography>
-        </Typography>
         </Box>
-        
       )}
     </Paper>
   );
